@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="OpenTK" Version="4.9.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="res\scripts\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="SDSL">
+        <HintPath>..\..\SDSL\SDSL\bin\Debug\net9.0\SDSL.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>
