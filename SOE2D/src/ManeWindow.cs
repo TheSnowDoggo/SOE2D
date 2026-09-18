@@ -6,7 +6,7 @@ namespace Bad2D;
 
 public class ManeWindow : GameWindow
 {
-	private const string ResourceDirectory = @"C:\Users\redst\RiderProjects\Bad2D\Bad2D\res";
+	private const string ResourceDirectory = @"C:\Users\redst\RiderProjects\SOE2D\SOE2D\res";
 	
 	private Dictionary<string, Shader> _shaders;
 	private ShaderProgram _program;

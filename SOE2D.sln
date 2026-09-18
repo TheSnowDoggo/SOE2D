@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bad2D", "Bad2D\Bad2D.csproj", "{19B493AE-958B-4DD3-8850-123DBEF1D3B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOE2D", "SOE2D\SOE2D.csproj", "{19B493AE-958B-4DD3-8850-123DBEF1D3B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
