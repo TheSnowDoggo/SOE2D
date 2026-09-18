@@ -14,12 +14,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="res\scripts\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Reference Include="SDSL">
-        <HintPath>..\..\SDXP\SDSL\bin\Debug\net9.0\SDSL.dll</HintPath>
+        <HintPath>..\..\SDSL\SDSL\bin\Debug\net9.0\SDSL.dll</HintPath>
       </Reference>
     </ItemGroup>
 

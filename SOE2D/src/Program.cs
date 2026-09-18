@@ -11,8 +11,8 @@ internal static class Program
 
 		var assembly = new VariantAssembly();
 		
-		NativeClassFactory.GenenerateNativeAssembly(assembly);
-		NativeClassFactory.GenerateAssembly(assembly, Assembly.GetAssembly(typeof(Program)));
+		NativeClassFactory.GenenerateNativeClasses(assembly);
+		SOEClassGenerator.GenerateClasses(assembly);
 
 		var linker = new AssemblyLinker(assembly);
 		
