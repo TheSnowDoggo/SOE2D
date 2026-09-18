@@ -17,7 +17,7 @@ public abstract class Control
 
 	private Vector2 _scale;
 	private Vector2 _globalScale;
-	
+
 	public string Name { get; set; }
 
 	public Control Parent => _parent;

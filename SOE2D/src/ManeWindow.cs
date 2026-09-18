@@ -1,4 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 
@@ -6,7 +7,7 @@ namespace Bad2D;
 
 public class ManeWindow : GameWindow
 {
-	private const string ResourceDirectory = @"C:\Users\redst\RiderProjects\SOE2D\SOE2D\res";
+	private const string ResourceDirectory = @"/home/luna-sparkle/RiderProjects/SOE2D/SOE2D/res";
 	
 	private Dictionary<string, Shader> _shaders;
 	private ShaderProgram _program;
@@ -29,6 +30,14 @@ public class ManeWindow : GameWindow
 		_program = new ShaderProgram();
 		
 		_program.LinkShaders(_shaders["shaders/.vert"], _shaders["shaders/.frag"]);
+
+		var mesh = new TriangleMesh();
+		mesh.Create(-0.5f, -0.5f, 0.5f, -0.5f, 0.0f, 0.5f);
+
+		_root = new TestControl()
+		{
+			Mesh = mesh,
+		};
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs args)

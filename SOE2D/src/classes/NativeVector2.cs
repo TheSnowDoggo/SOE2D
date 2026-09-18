@@ -53,6 +53,36 @@ public class NativeVector2 : VariantObject
 	[PropertyExport("Number")]
 	public Variant length_squared => _value.LengthSquared;
 
+	[FunctionExport("Any", Name = "*")]
+	public Variant _multiply(Variant[] args)
+	{
+		Variant other = args[0];
+
+		return other.VariantType switch
+		{
+			VariantType.Number => new NativeVector2(_value * other.AsSingle()),
+			VariantType.Object => other.TryAsVariantObject(out NativeVector2 v)
+				? new NativeVector2(_value * v._value)
+				: throw new RuntimeException($"Cannot multiply Vector2 by object of class {other.Class}."),
+			_ => throw new RuntimeException($"Cannot multiply Vector2 by {other.VariantType}.")
+		};
+	}
+	
+	[FunctionExport("Any", Name = "/")]
+	public Variant _divide(Variant[] args)
+	{
+		Variant other = args[0];
+
+		return other.VariantType switch
+		{
+			VariantType.Number => new NativeVector2(_value / other.AsSingle()),
+			VariantType.Object => other.TryAsVariantObject(out NativeVector2 v)
+				? new NativeVector2(_value / v._value)
+				: throw new RuntimeException($"Cannot divide Vector2 by object of class {other.Class}."),
+			_ => throw new RuntimeException($"Cannot divide Vector2 by {other.VariantType}.")
+		};
+	}
+	
 	[FunctionExport("Vector2", Name = "+")]
 	public Variant _add(Variant[] args)
 	{

@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using SDSL;
+﻿using SDSL;
 
 namespace Bad2D;
 
@@ -7,11 +6,16 @@ internal static class Program
 {
 	private static void Main(string[] args)
 	{
-		string directory = args[0];
+		using var window = new ManeWindow(800, 600);
+		window.Run();
+	}
 
+	private static void RunScript(string directory)
+	{
 		var assembly = new VariantAssembly();
 		
 		NativeClassFactory.GenenerateNativeClasses(assembly);
+		
 		SOEClassGenerator.GenerateClasses(assembly);
 
 		var linker = new AssemblyLinker(assembly);
@@ -24,11 +28,6 @@ internal static class Program
 
 		new AssemblyGenerator(assembly).GenerateMembers();
 
-		assembly.InvokeMain(args);
-		
-		return;
-		
-		using var window = new ManeWindow(800, 600);
-		window.Run();
+		assembly.InvokeMain();
 	}
 }
