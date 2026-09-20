@@ -1,9 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 
 namespace Bad2D;
 
-public abstract class Control
+public class Control
 {
 	private readonly List<Control> _children = [];
 	
@@ -15,8 +14,10 @@ public abstract class Control
 	private float _rotation;
 	private float _globalRotation;
 
-	private Vector2 _scale;
-	private Vector2 _globalScale;
+	private Vector2 _scale       = Vector2.One;
+	private Vector2 _globalScale = Vector2.One;
+
+	private Color4 _modulate = Color4.White;
 
 	public string Name { get; set; }
 
@@ -114,8 +115,16 @@ public abstract class Control
 		// Call scale setter to update child scales
 		set => Scale += value - _globalScale;
 	}
+
+	public Color4 Modulate { get; set; } = Color4.White;
 	
-	public ReadOnlyCollection<Control> Children => _children.AsReadOnly();
+	public float ZOffset { get; set; }
+
+	public bool IsVisible { get; set; } = true;
+
+	public virtual bool IsDrawable => false;
+	 
+	public IReadOnlyList<Control> Children => _children;
 
 	public int ChildCount => _children.Count;
 	
@@ -204,8 +213,8 @@ public abstract class Control
 
 		return -1;
 	}
-	
-	public abstract void Draw();
+
+	public virtual void Draw() { }
 
 	public override string ToString()
 	{

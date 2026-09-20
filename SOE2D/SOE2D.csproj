@@ -15,7 +15,7 @@
 
     <ItemGroup>
       <Reference Include="SDSL">
-        <HintPath>..\..\SDSL\SDSL\bin\Debug\net9.0\SDSL.dll</HintPath>
+        <HintPath>..\..\SDXP\SDSL\bin\Debug\net9.0\SDSL.dll</HintPath>
       </Reference>
     </ItemGroup>
 

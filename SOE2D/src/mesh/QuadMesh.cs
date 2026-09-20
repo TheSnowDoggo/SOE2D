@@ -1,46 +1,65 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace Bad2D;
 
-public sealed class TriangleMesh : Mesh2D
+public sealed class QuadMesh : Mesh2D
 {
-	private const int Vertices = 3;
+	private const int Vertices = 6;
 	
 	private readonly int _vbo;
 
-	public TriangleMesh()
+	private Vector2 _size;
+	
+	public QuadMesh()
 	{
 		_vbo = GL.GenBuffer();
 	}
 
-	public unsafe void Create(
-		float x1, float y1,
-		float x2, float y2,
-		float x3, float y3)
+	public Vector2 Size => _size;
+
+	public unsafe void Create(Vector2 size)
 	{
 		ThrowIfDisposed();
-
-		const int Length = 6;
+		
+		if (size == _size)
+		{
+			return;
+		}
+		
+		const int Length = 12;
 
 		float* data = stackalloc float[Length]
 		{
-			x1, y1,
-			x2, y2,
-			x3, y3,
+			// Left top triangle
+			0.0f  , size.Y, // lt
+			size.X, size.Y, // rt
+			0.0f  , 0.0f  , // lb
+			// Right bottom triangle
+			size.X, size.Y, // rt
+			size.X, 0.0f  , // rb
+			0.0f  , 0.0f  , // lb
 		};
 		
 		GL.BindVertexArray(_handle);
 		GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo);
 		
 		GL.BufferData(BufferTarget.ArrayBuffer, Length * sizeof(float), (nint)data, BufferUsageHint.StaticDraw);
-		
+
 		GL.VertexAttribPointer(0, VertexSize, VertexAttribPointerType.Float, false, VertexStride, 0);
 		GL.EnableVertexAttribArray(0);
 		
 		GL.BindVertexArray(0);
 		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+		
+		_size = size;
 	}
-	
+
+	public void Create(float width, float height)
+	{
+		Create(new Vector2(width, height));
+	}
+
 	public override void Draw()
 	{
 		ThrowIfDisposed();

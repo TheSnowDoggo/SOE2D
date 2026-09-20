@@ -7,11 +7,13 @@ namespace Bad2D;
 
 public class ManeWindow : GameWindow
 {
-	private const string ResourceDirectory = @"/home/luna-sparkle/RiderProjects/SOE2D/SOE2D/res";
+	private const string ResourceDirectory = @"C:\Users\redst\RiderProjects\Bad2D\SOE2D\res";
+	
+	private Viewport _viewport;
 	
 	private Dictionary<string, Shader> _shaders;
 	private ShaderProgram _program;
-
+	
 	private Control _root;
 	
 	public ManeWindow(int width, int height)
@@ -31,22 +33,25 @@ public class ManeWindow : GameWindow
 		
 		_program.LinkShaders(_shaders["shaders/.vert"], _shaders["shaders/.frag"]);
 
-		var mesh = new TriangleMesh();
-		mesh.Create(-0.5f, -0.5f, 0.5f, -0.5f, 0.0f, 0.5f);
+		var mesh = new QuadMesh();
+		mesh.Create(100, 100);
 
-		_root = new TestControl()
+		_root = new SpriteControl()
 		{
 			Mesh = mesh,
+			GlobalPosition = new Vector2(100, 100),
 		};
+
+		_viewport = new Viewport(_root, _program);
+		
+		_viewport.Resize(ClientSize);
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs args)
 	{
 		GL.Clear(ClearBufferMask.ColorBufferBit);
-		
-		_program.Use();
-		
-		_root?.Draw();
+
+		_viewport.Draw();
 		
 		SwapBuffers();
 	}
@@ -54,5 +59,7 @@ public class ManeWindow : GameWindow
 	protected override void OnFramebufferResize(FramebufferResizeEventArgs e)
 	{
 		GL.Viewport(0, 0, e.Width, e.Height);
+
+		_viewport.Resize(e.Size);
 	}
 }

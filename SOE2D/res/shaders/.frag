@@ -2,6 +2,8 @@
 
 out vec4 _color;
 
+uniform vec4 modulate;
+
 void main() {
-    _color = vec4(1.0, 1.0, 1.0, 1.0);
+    _color = modulate * vec4(1.0, 1.0, 1.0, 1.0);
 }

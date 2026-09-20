@@ -1,4 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace Bad2D;
 
@@ -77,6 +78,13 @@ public class ShaderProgram : IDisposable
 	public void Use()
 	{
 		GL.UseProgram(Handle);
+	}
+
+	public int GetUniformLocation(string name)
+	{
+		ObjectDisposedException.ThrowIf(_isDisposed, this);
+		
+		return GL.GetUniformLocation(_handle, name);
 	}
 	
 	public override string ToString()
