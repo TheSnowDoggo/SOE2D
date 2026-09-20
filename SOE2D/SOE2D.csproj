@@ -19,4 +19,10 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="src\part\Part.SDSL.cs">
+        <DependentUpon>Part.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

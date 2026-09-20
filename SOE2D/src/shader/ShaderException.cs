@@ -1,4 +1,4 @@
-﻿namespace Bad2D;
+﻿namespace SOE2D;
 
 public class ShaderException : Exception
 {

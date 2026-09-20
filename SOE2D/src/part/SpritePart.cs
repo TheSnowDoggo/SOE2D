@@ -1,10 +1,10 @@
-namespace Bad2D;
+namespace SOE2D;
 
-public class SpriteControl : Control
+public class SpritePart : Part
 {
     public Mesh2D Mesh { get; set; }
 
-    public override bool IsDrawable => Mesh != null;
+    public override bool Drawable => Mesh != null;
 
     public override void Draw()
     {

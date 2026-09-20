@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace Bad2D;
+namespace SOE2D;
 
 public struct Area2D
 {

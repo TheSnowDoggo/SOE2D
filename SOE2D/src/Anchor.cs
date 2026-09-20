@@ -1,4 +1,4 @@
-﻿namespace Bad2D;
+﻿namespace SOE2D;
 
 [Flags]
 public enum Anchor

@@ -1,7 +1,5 @@
 class Program {
     static func main(args) {
-        var v := new Vector2(1, 2);
-
-        printl(v + Vector2.One * 2);
+        var part := new Part();
     }
 }

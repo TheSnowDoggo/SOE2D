@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using SDSL;
 
-namespace Bad2D;
+namespace SOE2D;
 
 public class NativeVector2 : VariantObject
 {
@@ -20,6 +20,18 @@ public class NativeVector2 : VariantObject
 	public static NativeClass Class { get; } = NativeClass.InheritObject("Vector2");
 
 	public override VariantClass ObjectClass => Class;
+
+	public Vector2 Value => _value;
+
+	public static Variant ToVariant(Vector2 value)
+	{
+		return new NativeVector2(value);
+	}
+	
+	public static Vector2 ToVector2(Variant variant)
+	{
+		return variant.AsVariantObject<NativeVector2>()._value;
+	}
 	
 	[ConstructorExport("Number", "Number")]
 	public static Variant _new(Variant[] args)
@@ -64,7 +76,7 @@ public class NativeVector2 : VariantObject
 			VariantType.Object => other.TryAsVariantObject(out NativeVector2 v)
 				? new NativeVector2(_value * v._value)
 				: throw new RuntimeException($"Cannot multiply Vector2 by object of class {other.Class}."),
-			_ => throw new RuntimeException($"Cannot multiply Vector2 by {other.VariantType}.")
+			_ => throw new RuntimeException($"Cannot multiply Vector2 by {other.VariantType}."),
 		};
 	}
 	
@@ -79,20 +91,20 @@ public class NativeVector2 : VariantObject
 			VariantType.Object => other.TryAsVariantObject(out NativeVector2 v)
 				? new NativeVector2(_value / v._value)
 				: throw new RuntimeException($"Cannot divide Vector2 by object of class {other.Class}."),
-			_ => throw new RuntimeException($"Cannot divide Vector2 by {other.VariantType}.")
+			_ => throw new RuntimeException($"Cannot divide Vector2 by {other.VariantType}."),
 		};
 	}
 	
 	[FunctionExport("Vector2", Name = "+")]
 	public Variant _add(Variant[] args)
 	{
-		return new NativeVector2(_value + args[0].AsVariantObject<NativeVector2>()._value);
+		return new NativeVector2(_value + ToVector2(args[0]));
 	}
 	
 	[FunctionExport("Vector2", Name = "-")]
 	public Variant _subtract(Variant[] args)
 	{
-		return new NativeVector2(_value - args[0].AsVariantObject<NativeVector2>()._value);
+		return new NativeVector2(_value - ToVector2(args[0]));
 	}
 	
 	[FunctionExport(Name = "u-")]

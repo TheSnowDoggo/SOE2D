@@ -1,11 +1,16 @@
-﻿using SDSL;
+﻿using System.Reflection;
+using SDSL;
 
-namespace Bad2D;
+namespace SOE2D;
 
 internal static class Program
 {
 	private static void Main(string[] args)
 	{
+		RunScript(@"C:\Users\redst\RiderProjects\Bad2D\SOE2D\res\scripts");
+		
+		return;
+		
 		using var window = new ManeWindow(800, 600);
 		window.Run();
 	}

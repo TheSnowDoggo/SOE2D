@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-namespace Bad2D;
+namespace SOE2D;
 
 public abstract class Mesh2D : IDisposable
 {

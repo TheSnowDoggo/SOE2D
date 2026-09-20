@@ -1,24 +1,24 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-namespace Bad2D;
+namespace SOE2D;
 
 public class Viewport
 {
-	private readonly Control _root;
+	private readonly Part _root;
 
 	private readonly ShaderProgram _shaderProgram;
 	
 	private readonly int _mpLoc;
 	private readonly int _modulateLoc;
 	
-	private readonly Stack<Control> _searchStack = [];
+	private readonly Stack<Part> _searchStack = [];
 	
 	private Vector2 _size;
 
 	private Matrix4 _projection;
 
-	public Viewport(Control root, ShaderProgram shaderProgram)
+	public Viewport(Part root, ShaderProgram shaderProgram)
 	{
 		_root = root;
 		
@@ -28,7 +28,7 @@ public class Viewport
 		_modulateLoc = shaderProgram.GetUniformLocation("modulate");
 	}
 
-	public Control Root => _root;
+	public Part Root => _root;
 
 	public Vector2 Size => _size;
 
@@ -57,9 +57,9 @@ public class Viewport
 
 		_searchStack.Push(_root);
 
-		while (_searchStack.TryPop(out Control parent))
+		while (_searchStack.TryPop(out Part parent))
 		{
-			if (parent.IsDrawable)
+			if (parent.Drawable)
 			{
 				Vector2 gPosition = parent.GlobalPosition;
 			
@@ -82,9 +82,9 @@ public class Viewport
 				continue;
 			}
 
-			foreach (Control child in parent.Children)
+			foreach (Part child in parent.Children)
 			{
-				if (!child.IsVisible)
+				if (!child.Visible)
 				{
 					continue;
 				}

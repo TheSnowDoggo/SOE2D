@@ -1,12 +1,13 @@
 ﻿using OpenTK.Mathematics;
+using SDSL;
 
-namespace Bad2D;
+namespace SOE2D;
 
-public class Control
+public partial class Part : VariantObject
 {
-	private readonly List<Control> _children = [];
+	private readonly List<Part> _children = [];
 	
-	private Control _parent;
+	private Part _parent;
 
 	private Vector2 _position;
 	private Vector2 _globalPosition;
@@ -17,11 +18,9 @@ public class Control
 	private Vector2 _scale       = Vector2.One;
 	private Vector2 _globalScale = Vector2.One;
 
-	private Color4 _modulate = Color4.White;
-
 	public string Name { get; set; }
 
-	public Control Parent => _parent;
+	public Part Parent => _parent;
 	
 	public Vector2 Position
 	{
@@ -115,20 +114,20 @@ public class Control
 		// Call scale setter to update child scales
 		set => Scale += value - _globalScale;
 	}
-
-	public Color4 Modulate { get; set; } = Color4.White;
 	
 	public float ZOffset { get; set; }
 
-	public bool IsVisible { get; set; } = true;
-
-	public virtual bool IsDrawable => false;
-	 
-	public IReadOnlyList<Control> Children => _children;
-
-	public int ChildCount => _children.Count;
+	public Color4 Modulate { get; set; } = Color4.White;
 	
-	public void AddChild(Control child)
+	public bool Visible { get; set; } = true;
+
+	public virtual bool Drawable => false;
+	
+	public int ChildCount => _children.Count;
+	 
+	public IReadOnlyList<Part> Children => _children;
+	
+	public void AddChild(Part child)
 	{
 		if (child._parent != null)
 		{
@@ -157,7 +156,7 @@ public class Control
 			return false;
 		}
 
-		Control child = _children[index];
+		Part child = _children[index];
 		
 		_children.RemoveAt(index);
 		
@@ -176,21 +175,21 @@ public class Control
 		return true;
 	}
 	
-	public bool RemoveChild(Control child)
+	public bool RemoveChild(Part child)
 	{
 		return RemoveChild(_children.IndexOf(child));
 	}
 	
-	public Control GetChild(int index)
+	public Part GetChild(int index)
 	{
 		return _children[index];
 	}
 	
-	public Control FindFirstChild(string name, StringComparison comparison = StringComparison.Ordinal)
+	public Part FindFirstChild(string name, StringComparison comparison = StringComparison.Ordinal)
 	{
 		for (int i = 0; i < _children.Count; i++)
 		{
-			Control child = _children[i];
+			Part child = _children[i];
 			
 			if (child.Name.Equals(name, comparison))
 			{
@@ -225,7 +224,7 @@ public class Control
 	{
 		for (int i = 0; i < _children.Count; i++)
 		{
-			Control child = _children[i];
+			Part child = _children[i];
 
 			child._globalPosition = _globalPosition + child._position;
 			child.UpdateChildrenPositions();
@@ -236,7 +235,7 @@ public class Control
 	{
 		for (int i = 0; i < _children.Count; i++)
 		{
-			Control child = _children[i];
+			Part child = _children[i];
 
 			child._globalRotation = _globalRotation + child._rotation;
 			child.UpdateChildrenRotations();
@@ -247,7 +246,7 @@ public class Control
 	{
 		for (int i = 0; i < _children.Count; i++)
 		{
-			Control child = _children[i];
+			Part child = _children[i];
 
 			child._globalScale = _globalScale + child._scale;
 			child.UpdateChildrenScales();

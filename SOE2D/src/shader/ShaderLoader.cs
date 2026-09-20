@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using OpenTK.Graphics.OpenGL;
 
-namespace Bad2D;
+namespace SOE2D;
 
 public class ShaderLoader
 {

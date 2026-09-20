@@ -3,7 +3,7 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 
-namespace Bad2D;
+namespace SOE2D;
 
 public class ManeWindow : GameWindow
 {
@@ -14,7 +14,7 @@ public class ManeWindow : GameWindow
 	private Dictionary<string, Shader> _shaders;
 	private ShaderProgram _program;
 	
-	private Control _root;
+	private Part _root;
 	
 	public ManeWindow(int width, int height)
 		: base(GameWindowSettings.Default,
@@ -36,7 +36,7 @@ public class ManeWindow : GameWindow
 		var mesh = new QuadMesh();
 		mesh.Create(100, 100);
 
-		_root = new SpriteControl()
+		_root = new SpritePart()
 		{
 			Mesh = mesh,
 			GlobalPosition = new Vector2(100, 100),

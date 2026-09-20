@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-namespace Bad2D;
+namespace SOE2D;
 
 public sealed class QuadMesh : Mesh2D
 {

@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-namespace Bad2D;
+namespace SOE2D;
 
 public sealed class TriangleMesh : Mesh2D
 {
