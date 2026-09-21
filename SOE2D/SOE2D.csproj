@@ -11,6 +11,7 @@
 
     <ItemGroup>
       <PackageReference Include="OpenTK" Version="4.9.4" />
+      <PackageReference Include="SixLabors.ImageSharp" Version="4.1.2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,6 +24,10 @@
       <Compile Update="src\part\Part.SDSL.cs">
         <DependentUpon>Part.cs</DependentUpon>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="src\texture\" />
     </ItemGroup>
 
 </Project>

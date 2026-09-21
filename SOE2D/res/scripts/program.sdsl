@@ -1,5 +1,17 @@
 class Program {
     static func main(args) {
         var part := new Part();
+        part.position = new Vector2(8, 2);
+        
+        var names := ["luna", "marina", "twilight"];
+        
+        for name in names {
+            var child := new Part();
+            child.name = name;
+            
+            part.add_child(child);
+        }
+        
+        printl(part.find_first_child("twilight").global_position);
     }
 }

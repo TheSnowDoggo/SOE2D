@@ -89,4 +89,22 @@ public partial class Part
 		get => Visible;
 		set => Visible = value.AsBool();
 	}
+
+	[FunctionExport("Part")]
+	public void add_child(Variant[] args)
+	{
+		AddChild(args[0].AsVariantObject<Part>());
+	}
+
+	[FunctionExport("Part")]
+	public Variant remove_child(Variant[] args)
+	{
+		return RemoveChild(args[0].AsVariantObject<Part>());
+	}
+	
+	[FunctionExport("String")]
+	public Variant find_first_child(Variant[] args)
+	{
+		return FindFirstChild(args[0].AsString()) ?? Variant.Nil;
+	}
 }
