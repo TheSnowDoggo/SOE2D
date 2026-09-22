@@ -2,12 +2,13 @@
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using SDSL;
 
 namespace SOE2D;
 
 public class ManeWindow : GameWindow
 {
-	private const string ResourceDirectory = @"C:\Users\redst\RiderProjects\Bad2D\SOE2D\res";
+	private readonly string _resourceDirectory;
 	
 	private Viewport _viewport;
 	
@@ -16,17 +17,18 @@ public class ManeWindow : GameWindow
 	
 	private Part _root;
 	
-	public ManeWindow(int width, int height)
+	public ManeWindow(int width, int height, string resourceDirectory)
 		: base(GameWindowSettings.Default,
 			new NativeWindowSettings() { ClientSize = (width, height), Title = "Window" })
 	{
+		_resourceDirectory = resourceDirectory;
 	}
 
 	protected override void OnLoad()
 	{
 		GL.ClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 		
-		_shaders = new ShaderLoader(ResourceDirectory)
+		_shaders = new ShaderLoader(_resourceDirectory)
 			.LoadShaders();
 
 		_program = new ShaderProgram();
@@ -45,6 +47,8 @@ public class ManeWindow : GameWindow
 		_viewport = new Viewport(_root, _program);
 		
 		_viewport.Resize(ClientSize);
+
+		RunScript(Path.Combine(_resourceDirectory, "scripts"));
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs args)
@@ -61,5 +65,26 @@ public class ManeWindow : GameWindow
 		GL.Viewport(0, 0, e.Width, e.Height);
 
 		_viewport.Resize(e.Size);
+	}
+	
+	private void RunScript(string directory)
+	{
+		var assembly = new VariantAssembly();
+
+		NativeClassFactory.GenenerateNativeClasses(assembly);
+		
+		SOEClassGenerator.GenerateClasses(assembly);
+		
+		var linker = new AssemblyLinker(assembly);
+		
+		linker.LinkNativeClasses();
+		
+		ClassParser.ParseDirectory(assembly, directory);
+		
+		linker.LinkUserClasses();
+
+		new AssemblyGenerator(assembly).GenerateMembers();
+
+		assembly.EntryPoint.StaticInvoke(_root);
 	}
 }

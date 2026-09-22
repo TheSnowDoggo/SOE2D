@@ -107,4 +107,25 @@ public partial class Part
 	{
 		return FindFirstChild(args[0].AsString()) ?? Variant.Nil;
 	}
+
+	[FunctionExport("Number")]
+	public void update() { }
+
+	[FunctionExport("Function")]
+	public static void create_task(Variant[] args)
+	{
+		var function = args[0].AsVariantObject<Function>();
+
+		Task.Run(() => function.StaticInvoke());
+	}
+	
+	[FunctionExport("Number")]
+	public static void wait(Variant[] args)
+	{
+		double duration = args[0].AsDouble();
+		
+		DateTime start = DateTime.Now;
+		
+		while ((DateTime.Now - start).TotalSeconds < duration) { }
+	}
 }

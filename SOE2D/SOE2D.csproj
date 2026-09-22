@@ -6,18 +6,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <RootNamespace>Bad2D</RootNamespace>
+        <RootNamespace>SOE2D</RootNamespace>
+        <SixLaborsLicenseFile>../sixlabors.lic</SixLaborsLicenseFile>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="OpenTK" Version="4.9.4" />
       <PackageReference Include="SixLabors.ImageSharp" Version="4.1.2" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="SDSL">
-        <HintPath>..\..\SDXP\SDSL\bin\Debug\net9.0\SDSL.dll</HintPath>
-      </Reference>
     </ItemGroup>
 
     <ItemGroup>
@@ -27,7 +22,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="src\texture\" />
+      <Reference Include="SDSL">
+        <HintPath>..\..\SDSL\SDSL\bin\Debug\net9.0\SDSL.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

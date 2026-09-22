@@ -52,7 +52,7 @@ public partial class Part : VariantObject
 		// Call position setter to update child positions
 		set => Position += value - _globalPosition;
 	}
-
+	
 	public float Rotation
 	{
 		get => _rotation;

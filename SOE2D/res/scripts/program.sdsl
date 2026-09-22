@@ -1,9 +1,47 @@
 class Program {
-    static func main(args) {
+    static var root: Part;
+
+    static func main(root) {
+        Program.root = root;
+        Part.create_task(run);
+    }
+    
+    static func run() {
+        var delta := 1 / 60;
+
+        var direction := new Vector2(1, 1).normalized();
+        var speed := 100;
+
+        while true {
+            var new_position = root.position;
+
+            new_position += direction * speed * delta;
+
+            if (direction.x > 0 and new_position.x >= 800 - 100)
+                or (direction.x < 0 and new_position.x <= 0
+            ) {
+                direction.x = -direction.x;
+                speed += 100;
+            }
+
+            if (direction.y > 0 and new_position.y >= 600 - 100)
+                or (direction.y < 0 and new_position.y <= 0
+            ) {
+                direction.y = -direction.y;
+                speed += 100;
+            }
+
+            root.position = new_position;
+
+            Part.wait(delta);
+        }
+    }
+
+    static func test() {
         var part := new Part();
         part.position = new Vector2(8, 2);
         
-        var names := ["luna", "marina", "twilight"];
+        var names := ["luna", "fluttershy", "twilight"];
         
         for name in names {
             var child := new Part();
@@ -13,5 +51,11 @@ class Program {
         }
         
         printl(part.find_first_child("twilight").global_position);
+    }
+}
+
+class Foo : Part {
+    func update(delta: Number) {
+
     }
 }
